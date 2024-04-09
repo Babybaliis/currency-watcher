@@ -1,9 +1,13 @@
 import * as webpack from 'webpack';
 import * as webpackDevServer from 'webpack-dev-server';
 import path from "path";
+
+const dotenv = require('dotenv');
+dotenv.config();
+
 const config: webpack.Configuration = {
     entry: "./src/App.tsx",
-    cache:false,
+    cache: false,
     module: {
         rules: [
             {
@@ -49,6 +53,11 @@ const config: webpack.Configuration = {
         compress: true,
         port: 4000,
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': JSON.stringify(process.env)
+        })
+    ],
 };
 
 export default config;
